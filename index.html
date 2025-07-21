@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slider Example</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <!-- header section  -->
+    <header>
+      <!-- header continer -->
+      <div class="container mx-auto py-[18px] px-[20px] static top-0 bg-white">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-2 cursor-pointer">
+            <button id="meuIcon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+            <span class="text-lg font-semibold">3legant.</span>
+          </div>
+
+          <ul
+            id="headerMenuBar"
+            class="sm:flex items-center sm:gap-[40px] hidden"
+          ></ul>
+
+          <div class="flex gap-[15px] items-center hidden sm:block">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-solid fa-circle-user"></i>
+            <div class="relative hidden sm:block">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                />
+              </svg>
+              <div
+                class="absolute -top-2 -right-2 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center"
+              >
+                0
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- header menu bar -->
+
+      <div
+        id="menuBar"
+        class="bg-[#6C7275] fixed top-0 bg-opacity-50 left-0 z-[99] h-[100vh] w-[100%] sm:hidden transform -translate-x-full transition-transform duration-300"
+      >
+        <div
+          class="bg-[#fffff] p-[24px] bg-white h-full w-[90%] flex flex-col justify-between"
+        >
+          <div>
+            <div class="flex justify-between items-center mb-[16px]">
+              <span class="text-[16px] font-bold">3legant.</span>
+
+              <button onClick="closeClick()">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-[24px] cursor-pointer text-[#6C7275] font-bold"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <div
+              class="text-[#6C7275] border-[#6C7275] rounded-[10px] border-[1px] py-[11px] px-[16px] mb-[16px]"
+            >
+              <div class="flex gap-[8px] mb-16px">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-6 text-[#141718]"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <input type="text" placeholder="Search" class="outline-0" />
+              </div>
+            </div>
+
+            <ul id="mobileList"></ul>
+          </div>
+
+          <div class="">
+            <div class="mb-[20px]">
+              <div
+                class="flex items center justify-between border-b-[#E8ECEF] py-[10px] border-b-[1px] mb-[10px]"
+              >
+                <span class="text-[#6C7275] text-[18px] font-bold"> Cart </span>
+                <div>
+                  <i class="fa-solid fa-cart-shopping mr-[5px] text-[18px]"></i>
+                  <span
+                    class="inline-flex justify-center items-center text-[#FFFFFF] bg-[#141718] h-[20px] w-[20px] rounded-full"
+                    >0</span
+                  >
+                </div>
+              </div>
+              <div
+                class="flex items center justify-between border-b-[#E8ECEF] border-b-[1px] py-[10px]"
+              >
+                <span class="text-[#6C7275] text-[18px] font-bold">
+                  Wishlist
+                </span>
+                <div>
+                  <i class="fa-solid fa-heart mr-[5px] text-[18px]"></i>
+                  <span
+                    class="inline-flex justify-center items-center text-[#FFFFFF] bg-[#141718] h-[20px] w-[20px] rounded-full"
+                    >0</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-[20px]">
+              <button
+                class="bg-[#141718] w-full rounded-[10px] cursor-pointer text-center py-[10px] cursor-pointer text-[#ffffff] text-[18px]"
+              >
+                Sign In
+              </button>
+            </div>
+            <div class="flex items-baseline gap-[20px]">
+              <i class="fa-brands fa-instagram text-[24px]"></i>
+              <i class="fa-brands fa-facebook text-[24px]"></i>
+              <i class="fa-brands fa-youtube text-[24px]"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- hero section  -->
+
+    <section>
+      <div class="container mx-auto px-[20px]">
+        <div class="relative">
+          <div
+            class="sm:flex justify-between items-center absolute top-[50%] z-[99] px-[20px] left-0 transform -translate-y-1/2 w-full hidden"
+          >
+            <button class="bg-white h-[52px] w-[52px] rounded-full prev">
+              <i class="fa-solid fa-arrow-left text-[#6C7275]"></i>
+            </button>
+            <button class="bg-white h-[52px] w-[52px] rounded-full next">
+              <i class="fa-solid fa-arrow-right text-[#6C7275]"></i>
+            </button>
+          </div>
+          <div class="slider mb-[32px]">
+            <div>
+              <div>
+                <img
+                  src="https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8b2ZmaWNlfGVufDB8fDB8fHww"
+                  class="w-full h-[304px] sm:h-[500px] md:h-[550px]"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div>
+                <img
+                  class="w-full h-[304px] sm:h-[500px] md:h-[550px]"
+                  src="https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8b2ZmaWNlfGVufDB8fDB8fHww"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div>
+                <img
+                  class="w-full h-[304px] sm:h-[500px] md:h-[550px]"
+                  src="https://plus.unsplash.com/premium_photo-1681487178876-a1156952ec60?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG9mZmljZXxlbnwwfHwwfHx8MA%3D%3D"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div>
+                <img
+                  class="w-full h-[304px] sm:h-[500px] md:h-[550px]"
+                  src="https://media.istockphoto.com/id/2031208312/photo/modern-style-luxury-black-meeting-room-interior-with-night-city-view-background-3d-render.webp?a=1&b=1&s=612x612&w=0&k=20&c=izrI3wCygN1j911g5Qfq_-HSZ1tf-ZZxpZIawVsJgYI="
+                />
+              </div>
+            </div>
+
+            <div>
+              <div>
+                <img
+                  class="w-full h-[304px] sm:h-[500px] md:h-[550px]"
+                  src="https://images.unsplash.com/photo-1581464628684-80363cf9c2ac?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTB8fG9mZmljZSUyMGJ1bGRpbmd8ZW58MHx8MHx8fDA%3D"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div>
+                <img
+                  class="w-full h-[304px] sm:h-[500px] md:h-[550px]"
+                  src="https://images.unsplash.com/photo-1559209537-dafe2fe2886b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDR8fG9mZmljZSUyMGJ1bGRpbmd8ZW58MHx8MHx8fDA%3D"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="absolute bottom-5 flex justify-center w-full">
+            <div
+              id="customeDot"
+              class="flex gap-[16px] items-center py-[10px] text-center"
+            ></div>
+          </div>
+        </div>
+
+        <div class="mb-[40px] sm:flex sm:items-center">
+          <div>
+            <p
+              class="text-[40px] md:text-[50px] text-[#141718] mb-[16px] md:w-[90%]"
+            >
+              Simply Unique/ Simply Better.
+            </p>
+          </div>
+          <p class="text-[14px]">
+            <span class="font-bold text-[#6C7275]">3legant</span> is a gift &
+            decorations store based in HCMC, Vietnam. Est since 2019.
+          </p>
+        </div>
+
+        <div class="sm:flex sm:gap-[24px] items-center">
+          <div
+            class="bg-[url('./figma-aap/assest/banner.png')] bg-cover bg-center h-[377px] mb-[16px] sm:grow"
+          >
+            <div class="p-8">
+              <h1 class="text-[#141718] text-[40px]">Living Room</h1>
+              <div
+                class="mt-4 flex items-center border-b-[#000000] border-b-[1px] w-[40%] flex justify-between border-b-[#000000]"
+              >
+                <span class="text-[16px] text-[#141718] mb-[5px]"
+                  >Shop Now</span
+                >
+                <i class="fa-solid fa-arrow-right text-[#141718]"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="sm:grow">
+            <div
+              class="bg-[url('./figma-aap/assest/imgTwo.png')] bg-cover h-[180px] p-8 flex flex-col justify-end mb-[16px]"
+            >
+              <div>
+                <h1 class="text-[28px] font-bold text-[#41718] mb-[8px]">
+                  Bedroom
+                </h1>
+                <div
+                  class="text-[#141718] flex justify-between items-center w-[40%] border-b-[#141718] border-b-[1px]"
+                >
+                  <span class="text-[14px] font-bold">Shop Now</span>
+                  <i
+                    class="fa-solid fa-arrow-right text-[#141718] text-[16px]"
+                  ></i>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-[url('./figma-aap/assest/imgTwo.png')] bg-cover h-[180px] p-8 flex flex-col justify-end"
+            >
+              <div>
+                <h1 class="text-[28px] font-bold text-[#41718] mb-[8px]">
+                  Bedroom
+                </h1>
+                <div
+                  class="text-[#141718] flex justify-between items-center w-[40%] border-b-[#141718] border-b-[1px]"
+                >
+                  <span class="text-[14px] font-bold">Shop Now</span>
+                  <i
+                    class="fa-solid fa-arrow-right text-[#141718] text-[16px]"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- article section -->
+    <section>
+      <div class="px-[20px] py-[32px]">
+        <div class="container mx-auto px-[32px]">
+          <h2 class="text-[24px] text-[#000000] font-[500] w-[30%] mb-[40px]">
+            New Arival
+          </h2>
+        </div>
+
+        <div class="pl-[20px]">
+          <ul id="articleContainer" class="cardSlider mb-[40px]"></ul>
+        </div>
+
+        <div class="container max-auto px-[20px]">
+          <div
+            class="border-[#343839] border-[1px] bg-[#E8ECEF] rounded-[50px] flex items-center mb-[40px]"
+          >
+            <div class="bg-[#343839] h-[10px] w-[60%] rounded-[50px]"></div>
+          </div>
+
+          <span class="border-b-[#141718] border-b-[1px] py-2">
+            <a href="#" class="text-[14px] text-[#141718] font-[500]"
+              >More Products</a
+            >
+            <i class="fa-solid fa-arrow-right-long text-[#141718]"></i>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- shipping section  -->
+
+    <section>
+      <div class="container mx-auto px-[20px] py-[32px]">
+        <div
+          class="flex flex-col sm:flex-row gap-[24px] sm:gap-[8px] items-center"
+        >
+          <div class="flex gap-[8px] items-center sm:grow">
+            <div
+              class="grow rounded h-[198px] bg-[#F3F5F7] px-[16px] py-[32px]"
+            >
+              <div class="mb-[22px]">
+                <img src="./figma-aap/assest/fast-delivery.png" />
+              </div>
+
+              <div class="">
+                <h2 class="text-[16px] text-[#141718] font-[500]">
+                  Free Shipping
+                </h2>
+                <p class="text-[14px] text-[#6C7275]">Order above $200</p>
+              </div>
+            </div>
+
+            <div
+              class="grow h-[198px] rounded bg-[#F3F5F7] px-[16px] py-[32px]"
+            >
+              <div class="mb-[22px]">
+                <img src="./figma-aap/assest/fast-delivery.png" />
+              </div>
+
+              <div class="">
+                <h2 class="text-[16px] text-[#141718] font-[500]">
+                  Free Shipping
+                </h2>
+                <p class="text-[14px] text-[#6C7275]">Order above $200</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-[8px] items-center sm:grow">
+            <div
+              class="grow h-[198px] rounded bg-[#F3F5F7] px-[16px] py-[32px]"
+            >
+              <div class="mb-[22px]">
+                <img src="./figma-aap/assest/fast-delivery.png" />
+              </div>
+
+              <div class="">
+                <h2 class="text-[16px] text-[#141718] font-[500]">
+                  Free Shipping
+                </h2>
+                <p class="text-[14px] text-[#6C7275]">Order above $200</p>
+              </div>
+            </div>
+
+            <div
+              class="grow h-[198px] rounded bg-[#F3F5F7] px-[16px] py-[32px]"
+            >
+              <div class="mb-[22px]">
+                <img src="./figma-aap/assest/fast-delivery.png" />
+              </div>
+
+              <div class="">
+                <h2 class="text-[16px] text-[#141718] font-[500]">
+                  Free Shipping
+                </h2>
+                <p class="text-[14px] text-[#6C7275]">Order above $200</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="flex flex-col sm:flex-row">
+        <div class="sm:grow sm:w-[52%]">
+          <img
+            src="./figma-aap/assest/paste-img.png"
+            class="h-[370px] w-full object-cover"
+          />
+        </div>
+
+        <div
+          class="px-[20px] py-[58px] bg-[#F3F5F7] sm:grow flex flex-col justify-center items-baseline"
+        >
+          <div class="mb-[20px]">
+            <h2 class="text-[#377DFF] text-[16px] font-bold mb-[16px]">
+              SALE UP TO 35% OFF
+            </h2>
+            <h2 class="text-[#121212] text-[34px] font-bold mb-[16px]">
+              HUNDREDS of New lower prices!
+            </h2>
+            <p class="text-[20] text-[#121212]">
+              It’s more affordable than ever to give every room in your home a
+              stylish makeover
+            </p>
+          </div>
+
+          <span class="border-b-[#141718] border-b-[1px]">
+            <a href="#" class="text-[14px] text-[#141718] font-bold"
+              >Shop Now</a
+            >
+            <i class="fa-solid fa-arrow-right-long text-[#141718]"></i>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- artical section -->
+    <section>
+      <div class="container mx-auto px-[20px] py-[40px]">
+        <div class="flex items-center justify-between mb-[40px]">
+          <h2 class="text-[32px] font-[600] text-[#000000]">Articles</h2>
+          <span class="border-b-[#141718] border-b-[1px]">
+            <a href="#" class="text-[14px] text-[#141718] font-[500]"
+              >More Articles</a
+            >
+            <i class="fa-solid fa-arrow-right-long text-[#141718]"></i>
+          </span>
+        </div>
+
+        <div
+          id="moreArticle"
+          class="flex flex-col sm:flex-row gap-[25px]"
+        ></div>
+      </div>
+    </section>
+
+    <!-- newsletter section  -->
+    <section>
+      <div class="bg-[#F2F4F6]">
+        <div
+          class="container max-auto px-[20px] py-[95px] text-center flex items-center justify-center"
+        >
+          <div class="w-[480px]">
+            <div class="mb-[32px]">
+              <h2 class="text-[28px] text-[#141718] mb-[8px] font-bold">
+                Join Our Newsletter
+              </h2>
+              <p class="text-[14px] text-[141718]">
+                Sign up for deals, new products and promotions
+              </p>
+            </div>
+
+            <div
+              class="py-[12px] border-b-[#6C7275] flex justify-between items-center border-b-[1px]"
+            >
+              <div class="flex gap-[8px] items-center">
+                <i class="fa-solid fa-envelope text-[24px] text-[#141718]"></i>
+                <input
+                  placeholder="Email address"
+                  class="placeholder-[#6C7275] placeholder-[12px] placeholder-bold bg-transparent outline-0"
+                />
+              </div>
+              <button
+                class="text-[#6C7275] text-[12px] font-bold cursor-pointer"
+              >
+                Sign up
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- footer section -->
+
+    <footer>
+      <div class="bg-[#232627]">
+        <div class="container mx-auto px-[20px] py-[48px]">
+          <div class="flex flex-col justify-center gap-[40px]">
+            <div
+              class="flex flex-col sm:flex-row sm:justify-between items-center"
+            >
+              <div
+                class="flex flex-col sm:flex-row gap-[16px] mb-[40px] sm:mb-[0px] justify-center items-center"
+              >
+                <h2 class="text-[24px] text-[#FFFFFF] font-[500]">3legant.</h2>
+                <hr class="w-[10%] text-[#6C7275] sm:hidden" />
+                <div class="h-[20px] w-[1px] bg-white hidden sm:block"></div>
+                <p class="text-[#E8ECEF] text-[14px]">
+                  Gift & Decoration Store
+                </p>
+              </div>
+
+              <ul
+                id="fotterNavigation"
+                class="flex flex-col sm:flex-row gap-[32px] items-center"
+              ></ul>
+            </div>
+
+            <div
+              class="py-[24px] flex flex-col sm:flex-row sm:justify-between items-center border-t-[#E8ECEF] border-t-[1px]"
+            >
+              <ul class="flex items-center gap-[24px] mb-[32px] sm:mb-[0px]">
+                <li><img src="./figma-aap/assest/instagram.png" /></li>
+                <li><img src="./figma-aap/assest/facebook.png" /></li>
+                <li><img src="./figma-aap/assest/youtube.png" /></li>
+              </ul>
+
+              <div class="flex flex-col sm:flex-row items-center gap-[28px]">
+                <div class="flex gap-[28px] items-center">
+                  <p class="text-[#FEFEFE] text-[12px] font-bold">
+                    Privacy Policy
+                  </p>
+                  <p class="text-[#FEFEFE] text-[12px] font-bold">
+                    Terms of Use
+                  </p>
+                </div>
+
+                <p class="text-[12px] text-[#E8ECEF]">
+                  Copyright © 2023 3legant. All rights reserved
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script src="./figma-aap/script.js"></script>
+  </body>
+</html>
